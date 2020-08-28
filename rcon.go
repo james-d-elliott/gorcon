@@ -1,6 +1,7 @@
 package gorcon
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"sync"
@@ -104,6 +105,10 @@ func (rc *RemoteConsole) Authenticate(password string) (err error) {
 		if err != nil {
 			return err
 		}
+	}
+
+	if response == nil {
+		return errors.New("nil ptr")
 	}
 
 	if response.Type == ResponseValue {
