@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// ServerPacket represents packets received from the server.
 type ServerPacket struct {
 	Size      int32
 	ID        int32
@@ -13,6 +14,7 @@ type ServerPacket struct {
 	BodyBytes []byte
 }
 
+// NewServerPacketFromRemoteConsole reads the data from the socket and decodes it into a ServerPacket.
 func NewServerPacketFromRemoteConsole(rc *RemoteConsole) (n int64, packet *ServerPacket, err error) {
 	if rc.settings.ReadDeadline > 0 {
 		err = rc.conn.SetReadDeadline(time.Now().Add(rc.settings.ReadDeadline))
@@ -63,6 +65,7 @@ func NewServerPacketFromRemoteConsole(rc *RemoteConsole) (n int64, packet *Serve
 	return n, packet, nil
 }
 
+// Body converts the BodyBytes into a string.
 func (sp *ServerPacket) Body() string {
 	return string(sp.BodyBytes[0 : len(sp.BodyBytes)-int(PacketTerminatorSize)])
 }

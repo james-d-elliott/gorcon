@@ -5,19 +5,32 @@ import (
 	"time"
 )
 
+// ClientPacketType represents the packet types that can be sent by the client to the server.
 type ClientPacketType int32
 
 const (
-	CheckResponse  ClientPacketType = 0
+	// TODO: Implement this response check.
+	// CheckResponse is a SERVERDATA_RESPONSE_VALUE packet type, used for multi-packet response checking.
+	CheckResponse ClientPacketType = 0
+
+	// ExecuteCommand represents the SERVERDATA_EXECCOMMAND packet type.
 	ExecuteCommand ClientPacketType = 2
-	Auth           ClientPacketType = 3
+
+	// Auth represents the SERVERDATA_AUTH packet type.
+	Auth ClientPacketType = 3
 )
 
+// ServerPacketType represents the packet types that can be received by the client from the server.
 type ServerPacketType int32
 
 const (
-	ResponseValue          ServerPacketType = 0
-	AuthResponse           ServerPacketType = 2
+	// ResponseValue represents the SERVERDATA_RESPONSE_VALUE packet type.
+	ResponseValue ServerPacketType = 0
+
+	// AuthResponse represents the SERVERDATA_AUTH_RESPONSE packet type.
+	AuthResponse ServerPacketType = 2
+
+	// RustUndocumentedPacket represents the unknown packet type from Rust with an ID of 4.
 	RustUndocumentedPacket ServerPacketType = 4
 )
 
@@ -36,8 +49,13 @@ const (
 )
 
 const (
-	DefaultDialTimeout   = 5 * time.Second
-	DefaultReadDeadline  = 5 * time.Second
+	// DefaultDialTimeout is the timeout set for a zero value timeout, disabling it requires it be set to -1.
+	DefaultDialTimeout = 5 * time.Second
+
+	// DefaultReadDeadline is the deadline for reading from the socket, disabling it requires it be set to -1.
+	DefaultReadDeadline = 5 * time.Second
+
+	// DefaultWriteDeadline is the deadline for writing to the socket, disabling it requires it be set to -1.
 	DefaultWriteDeadline = 5 * time.Second
 )
 

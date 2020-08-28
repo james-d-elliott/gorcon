@@ -43,7 +43,7 @@ func NewRemoteConsole(address string, password string, settings RemoteConsoleSet
 	}
 
 	if err := rc.Dial(address); err != nil {
-		return rc, err
+		return nil, err
 	}
 
 	if err := rc.Authenticate(password); err != nil {

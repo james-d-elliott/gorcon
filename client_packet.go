@@ -6,16 +6,19 @@ import (
 	"time"
 )
 
+// ClientPacket represents an outgoing packet from the client to the remote server.
 type ClientPacket struct {
 	ID   int32
 	Type ClientPacketType
 	Body string
 }
 
+// Size calculates the size of the packet.
 func (cp *ClientPacket) Size() int32 {
 	return PacketHeaderSize + int32(len(cp.Body)) + PacketTerminatorSize
 }
 
+// WriteTo writes this packet to the underlying connection.
 func (cp *ClientPacket) WriteTo(rc *RemoteConsole) (n int64, err error) {
 	buffer := bytes.NewBuffer(make([]byte, cp.Size()+4))
 	if err := binary.Write(buffer, binary.LittleEndian, cp.Size()); err != nil {
